@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useEffect, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Upload from "../../components/Upload";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -130,7 +131,7 @@ export default function Home() {
               Supports JPG, PNG formats Upto 10MB
             </p>
 
-            <p>Upload Images</p>
+            <Upload />
           </div>
 
         </div>

@@ -3,48 +3,48 @@
 
 @font-face {
   font-family: 'OffBit';
-  src: url('/OTF/OffBitTrial-Regular.otf') format('opentype'),
-       url('/TTF/OffBitTrial-Regular.ttf') format('truetype');
+  src: url('/fonts/OTF/OffBitTrial-Regular.otf') format('opentype'),
+       url('/fonts/TTF/OffBitTrial-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'OffBit';
-  src: url('/OTF/OffBitTrial-Bold.otf') format('opentype'),
-       url('TTF/OffBitTrial-Bold.ttf') format('truetype');
+  src: url('/fonts/OTF/OffBitTrial-Bold.otf') format('opentype'),
+       url('/fonts/TTF/OffBitTrial-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'OffBit-101';
-  src: url('OTF/OffBitTrial-101.otf') format('opentype'),
-       url('/TTF/OffBitTrial-101.ttf') format('truetype');
+  src: url('/fonts/OTF/OffBitTrial-101.otf') format('opentype'),
+       url('/fonts/TTF/OffBitTrial-101.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'OffBit-101';
-  src: url('/OTF/OffBitTrial-101Bold.otf') format('opentype'),
-       url('/TTF/OffBitTrial-101Bold.ttf') format('truetype');
+  src: url('/fonts/OTF/OffBitTrial-101Bold.otf') format('opentype'),
+       url('/fonts/TTF/OffBitTrial-101Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'OffBit-Dot';
-  src: url('/OTF/OffBitTrial-Dot.otf') format('opentype'),
-       url('/TTF/OffBitTrial-Dot.ttf') format('truetype');
+  src: url('/fonts/OTF/OffBitTrial-Dot.otf') format('opentype'),
+       url('/fonts/TTF/OffBitTrial-Dot.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'OffBit-Dot';
-  src: url('/OTF/OffBitTrial-DotBold.otf') format('opentype'),
-       url('/TTF/OffBitTrial-DotBold.ttf') format('truetype');
+  src: url('/fonts/OTF/OffBitTrial-DotBold.otf') format('opentype'),
+       url('/fonts/TTF/OffBitTrial-DotBold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
