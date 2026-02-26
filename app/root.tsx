@@ -43,10 +43,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+
+
+
+
 const DEFAULT_AUTH_STATE : AuthState = {
   isSignedIn: false,
   username: null,
   userId: null,
+  isLoading: true,
 }
 
 export default function App() {
@@ -60,12 +65,16 @@ export default function App() {
         isSignedIn: !!user,
         username: user?.username || null,
         userId: user?.uuid || null,
+        isLoading: false,
       });
 
       return !!user;
 
     } catch {
-      setAuthState(DEFAULT_AUTH_STATE);
+      setAuthState({
+        ...DEFAULT_AUTH_STATE,
+        isLoading: false,
+      });
       return false;
     }
   }
@@ -83,7 +92,7 @@ export default function App() {
     return await refreshAuth();
   }
   return (
-      <main className={"min-h-screen bg-background text-foreground relative z-10"}>
+      <main className={"min-h-screen  text-foreground relative z-10"}>
     <Outlet
     context = {{
       ...authState, refreshAuth, signIn, signOut
