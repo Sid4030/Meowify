@@ -7,9 +7,7 @@ import { vercelPreset } from "@vercel/react-router/vite";
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    reactRouter({
-      presets: [vercelPreset()],
-    }),
+    reactRouter(),
     tsconfigPaths(),
   ],
   build: {

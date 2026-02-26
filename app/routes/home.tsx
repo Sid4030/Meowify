@@ -1,12 +1,14 @@
 import type { Route } from "./+types/home";
 import Navbar from "../../components/Navbar";
-import {ArrowRight, Layers, Sparkles, Code, Brain, Cpu, Database, Laptop} from "lucide-react";
+import {Layers, Sparkles, Code, Brain, Cpu, Database, Laptop} from "lucide-react";
 import Button from "../../components/ui/Button";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useEffect, useLayoutEffect } from "react";
+import { motion } from "motion/react";
+import { useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Upload from "../../components/Upload";
+import {useNavigate} from "react-router";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +20,14 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  const handleUploadComplete = async (base64Image: string) => {
+    const newID = crypto.randomUUID();
+
+     navigate(`/visualizer/${newID}`);
+     return true
+  }
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLDivElement>(null);
@@ -27,23 +37,24 @@ export default function Home() {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const spans = gsap.utils.toArray(".animated-word");
-      
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: `+=${words.length * 40}%`,
+          end: `+=${words.length * 50}%`,
           pin: true,
-          scrub: 1.5,
+          scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
+          fastScrollEnd: true,
         }
       });
 
       spans.forEach((span, i) => {
         // Entrance
         if (i > 0) {
-          tl.fromTo(span as HTMLElement, 
+          tl.fromTo(span as HTMLElement,
             { y: 100, opacity: 0, scale: 0.8 },
             { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
             i * 1.5
@@ -54,7 +65,7 @@ export default function Home() {
 
         // Exit
         if (i < spans.length - 1) {
-          tl.to(span as HTMLElement, 
+          tl.to(span as HTMLElement,
             { y: -100, opacity: 0, scale: 1.2, duration: 1, ease: "power2.in" },
             (i + 1) * 1.5
           );
@@ -76,7 +87,7 @@ export default function Home() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -91,7 +102,7 @@ export default function Home() {
 
   return ( <div className = "home" ref={containerRef}>
     <Navbar />
-    <motion.section 
+    <motion.section
       className={"hero"}
       variants={containerVariants}
       initial="hidden"
@@ -128,10 +139,12 @@ export default function Home() {
             </div>
             <h3>Upload your Sketch</h3>
             <p>
-              Supports JPG, PNG formats Upto 10MB
+              Supports JPG, PNG formats
+              Upto 10MB
             </p>
 
-            <Upload />
+
+            <Upload onComplete={handleUploadComplete} />
           </div>
 
         </div>
@@ -139,17 +152,18 @@ export default function Home() {
     </motion.section>
 
     <div className="section-separator" />
-    
+
+
     <div className="sliding-text-container">
       <div className="sliding-text">
-        Meowify AI • 2D to 3D for Interior Designers • Professional SAAS Platform • Modern AI Rendering • 
+        Meowify AI • 2D to 3D for Interior Designers • Professional SAAS Platform • Modern AI Rendering •
       </div>
     </div>
 
     <div className="section-separator" />
 
 
-    <motion.section 
+    <motion.section
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -178,11 +192,11 @@ export default function Home() {
           >
             Empowering Interior Designers to turn 2D Sketches into professional 3D Renders instantly with AI-driven precision.
           </motion.p>
-          <motion.div 
+          <motion.div
             variants={itemVariants}
             className="flex flex-wrap gap-6"
           >
-            <a href="#upload" className="cta text-lg px-8 py-4 bg-primary text-white border-[3px] border-foreground shadow-handdrawn hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all rounded-2xl flex items-center justify-center">Try Now</a>
+            <a href={"#upload"} className="cta text-lg px-8 py-4 bg-primary text-white border-[3px] border-foreground shadow-handdrawn hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all rounded-2xl flex items-center justify-center">Try Now</a>
             <Button variant="outline" size="lg" onClick={() => window.location.href='#'}>Learn More</Button>
           </motion.div>
         </div>
@@ -191,10 +205,10 @@ export default function Home() {
               variants={itemVariants}
               className="relative z-10 bg-surface border-[6px] border-foreground rounded-[3rem] p-4 md:p-8 shadow-handdrawn animate-rotate-3d"
           >
-            <div className="aspect-square bg-surface-highlight rounded-[2rem] border-[4px] border-foreground overflow-hidden relative group cursor-crosshair">
+            <div className="aspect-square bg-surface-highlight rounded-4xl border-4 border-foreground overflow-hidden relative group cursor-crosshair">
               {/* Innovative Sketch-to-3D Preview */}
               <div className="absolute top-6 left-6 z-30 flex flex-col gap-3">
-                <motion.div 
+                <motion.div
                   initial={{ x: -20, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
@@ -202,7 +216,7 @@ export default function Home() {
                 >
                   3D RENDER
                 </motion.div>
-                <motion.div 
+                <motion.div
                    initial={{ x: -20, opacity: 0 }}
                    whileInView={{ x: 0, opacity: 1 }}
                    transition={{ delay: 0.4 }}
@@ -224,25 +238,15 @@ export default function Home() {
                   className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
                   referrerPolicy="no-referrer"
               />
-              
+
               {/* Scanline Effect on Hover */}
               <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(249,115,22,0.1)_50%,transparent_50%)] bg-[length:100%_4px] animate-pulse" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(249,115,22,0.1)_50%,transparent_50%)] bg-size-[100%_4px] animate-pulse" />
               </div>
             </div>
           </motion.div>
-          
-          {/* Decorative 2D Elements */}
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-12 -right-12 w-48 h-48 border-[4px] border-dashed border-primary/30 rounded-full pointer-events-none" 
-          />
-          <motion.div 
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-16 -left-16 w-64 h-64 border-[4px] border-dashed border-secondary/30 rounded-full pointer-events-none" 
-          />
+
+          {/* Decorative 2D Elements (Removed as per user request for clean UI) */}
         </div>
       </div>
     </motion.section>
@@ -250,43 +254,6 @@ export default function Home() {
       ref={triggerRef} 
       className="scroll-trigger-section relative bg-foreground overflow-hidden min-h-screen flex items-center justify-center py-16 md:py-32"
     >
-      {/* Decorative Background Elements */}
-      <div className="bg-elements hidden md:block">
-        <motion.div 
-          animate={{ 
-            y: [0, -20, 0],
-            rotate: [12, 15, 12],
-          }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="element rect top-20 left-[10%]" 
-        />
-        <motion.div 
-          animate={{ 
-            rotate: 360,
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="element circle bottom-20 right-[15%]" 
-        />
-        <motion.div 
-          animate={{ 
-            x: [0, 30, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="element triangle top-1/2 left-[5%]" 
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.1, 1],
-            rotate: [-10, 10, -10],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="element triangle-outline bottom-1/4 right-[5%]" 
-        />
-        {/* Additional Pixel Elements */}
-        <div className="absolute top-[30%] right-[25%] w-4 h-4 bg-white/20 animate-pulse" />
-        <div className="absolute bottom-[40%] left-[20%] w-6 h-6 bg-white/10 border border-white/30 rotate-45" />
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 w-full flex flex-col items-center justify-center text-center relative z-10">
         {/* New Header Section */}
@@ -295,24 +262,24 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-12 md:mb-24"
+          className="mb-8 md:mb-16"
         >
-          <h1 className="text-white text-4xl sm:text-5xl md:text-8xl font-offbit font-black uppercase mb-4 md:mb-6 tracking-tighter">
+          <h1 className="text-white text-3xl sm:text-5xl md:text-8xl font-offbit font-black uppercase mb-3 md:mb-6 tracking-tighter">
             What do we do?
           </h1>
-          <p className="text-white/60 text-base sm:text-lg md:text-3xl font-offbit-101 font-medium uppercase tracking-widest max-w-3xl mx-auto">
+          <p className="text-white/60 text-sm sm:text-lg md:text-3xl font-offbit-101 font-medium uppercase tracking-widest max-w-3xl mx-auto px-4">
             what are we meant to do?
           </p>
         </motion.div>
 
         {/* Animated Sequence */}
-        <div className="flex items-center gap-3 md:gap-8 justify-center">
+        <div className="flex items-center gap-3 md:gap-8 justify-center flex-wrap sm:flex-nowrap">
            <span className="text-white text-4xl sm:text-5xl md:text-9xl font-offbit font-black uppercase tracking-tighter opacity-40">WE</span>
-           <div ref={wordsRef} className="relative h-12 sm:h-15 md:h-30 w-48 sm:w-62.5 md:w-150 overflow-hidden">
+           <div ref={wordsRef} className="relative h-12 sm:h-20 md:h-30 w-40 sm:w-64 md:w-150 overflow-hidden">
               {words.map((word, index) => (
                 <span
                   key={word}
-                  className="animated-word absolute inset-0 text-primary text-4xl sm:text-5xl md:text-9xl font-offbit font-black uppercase tracking-tighter opacity-0 flex items-center justify-center text-center"
+                  className="animated-word absolute inset-0 text-primary text-3xl sm:text-5xl md:text-9xl font-offbit font-black uppercase tracking-tighter opacity-0 flex items-center justify-center text-center px-2"
                 >
                   {word}
                 </span>
@@ -388,7 +355,7 @@ export default function Home() {
                 While AI can easily create website frontends today, the real challenge lies in the complex logic and <strong>Deep Learning/Machine Learning</strong> required for spatial transformations. This is where my focus lies.
               </p>
               
-              <div className="bg-zinc-50 border-l-[4px] border-primary p-6 rounded-r-2xl mb-8 shadow-sm space-y-4">
+              <div className="bg-zinc-50 border-l-4 border-primary p-6 rounded-r-2xl mb-8 shadow-sm space-y-4">
                 <p className="text-sm md:text-base italic m-0 text-foreground/80">
                   "I created Meowify to use Agentic AI to convert 2D sketches to 3D. While the original project idea was inspired by a video from <strong>JavaScript Mastery</strong> on YouTube, I have heavily elaborated on it—implementing my own UI, custom backend logic, and a deeper technical architecture to make these tools truly accessible."
                 </p>
@@ -399,10 +366,10 @@ export default function Home() {
               
               <div className="tech-stack">
                 <div className="stack-item">
-                  <Database size={16} /> PostgreSQL
+                  <Database size={16} /> MongoDB
                 </div>
                 <div className="stack-item">
-                  <Cpu size={16} /> Machine Learning
+                  <Cpu size={16} /> OS  Machine Learning
                 </div>
                 <div className="stack-item">
                   <Code size={16} /> React/Next.js
@@ -410,13 +377,26 @@ export default function Home() {
                 <div className="stack-item">
                   <Laptop size={16} /> Agentic AI
                 </div>
+                <div className="stack-item">
+                  Deep Learning
+                </div>
+                <div className="stack-item">
+                  Backend
+                </div>
+                <div className="stack-item">
+                  Cybersecurity
+                </div>
+                <div className="stack-item">
+                  Web Development
+                </div>
+
               </div>
 
               <div className="mt-12 flex items-center gap-6">
                  <Button variant="primary" size="lg" className="px-12">Get in Touch</Button>
                  <div className="hidden md:flex flex-col">
                     <span className="text-xs font-bold uppercase text-foreground/40">Next Milestones</span>
-                    <span className="text-sm font-bold">Removing Puter & Full Native Auth</span>
+                    <span className="text-sm font-bold">Removing Puter & Full Native Auth also working on App Development</span>
                  </div>
               </div>
             </motion.div>

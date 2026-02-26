@@ -72,7 +72,7 @@ const Navbar = () => {
                     
                     {/* Hamburger Button */}
                     <button 
-                        className="lg:hidden p-2 text-foreground hover:bg-zinc-100 rounded-xl transition-all active:scale-95 border-[3px] border-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                        className="lg:hidden p-2 text-foreground hover:bg-zinc-100 rounded-xl transition-all active:scale-95 border-[3px] border-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                         onClick={toggleMenu}
                     >
                         {isMenuOpen ? <X size={24} strokeWidth={3} /> : <Menu size={24} strokeWidth={3} />}
@@ -90,8 +90,8 @@ const Navbar = () => {
                         className="lg:hidden absolute top-full left-4 right-4 mt-2 bg-white border-[3px] border-foreground rounded-[2rem] p-6 shadow-handdrawn z-50 overflow-hidden"
                     >
                         <ul className="flex flex-col space-y-4 mb-8">
-                            <a href="#hero" className="text-lg font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors" onClick={toggleMenu}>Home</a>
-                            <a href="#about" className="text-lg font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors" onClick={toggleMenu}>About us</a>
+                            <a href={"#hero"} className="text-lg font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors" onClick={toggleMenu}>Home</a>
+                            <a href={"#about"} className="text-lg font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors" onClick={toggleMenu}>About us</a>
                             <a href="#" className="text-lg font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors" onClick={toggleMenu}>Work</a>
                             <a href="#" className="text-lg font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors" onClick={toggleMenu}>Contact</a>
                         </ul>
@@ -112,7 +112,7 @@ const Navbar = () => {
                                     <Button fullWidth onClick={() => { handleAuthClick(); toggleMenu(); }} variant="outline" size="lg">
                                         Log In
                                     </Button>
-                                    <a href="#upload" className="cta text-center px-6 py-4 text-lg bg-primary text-white border-[3px] border-foreground shadow-handdrawn rounded-2xl active:translate-x-1 active:translate-y-1 active:shadow-none" onClick={toggleMenu}>
+                                    <a href={"#upload"} className="cta text-center px-6 py-4 text-lg bg-primary text-white border-[3px] border-foreground shadow-handdrawn rounded-2xl active:translate-x-1 active:translate-y-1 active:shadow-none" onClick={toggleMenu}>
                                         Get Started
                                     </a>
                                 </>

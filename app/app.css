@@ -276,39 +276,6 @@
     }
   }
 
-  .scroll-trigger-section {
-    .bg-elements {
-      @apply absolute inset-0 pointer-events-none overflow-hidden opacity-10;
-      
-      .element {
-        @apply absolute border-[2px] border-white/40;
-      }
-      
-      .rect { @apply w-32 h-32 rotate-12; }
-      .circle { @apply w-48 h-48 rounded-full border-dashed; }
-      .triangle { 
-        @apply w-0 h-0 border-l-[40px] border-l-transparent border-r-[40px] border-r-transparent border-b-[60px] border-b-white/40 border-none; 
-        background: transparent;
-      }
-      .triangle-outline {
-        width: 0;
-        height: 0;
-        border-left: 50px solid transparent;
-        border-right: 50px solid transparent;
-        border-bottom: 86.6px solid rgba(255, 255, 255, 0.4);
-        position: relative;
-        &::after {
-          content: '';
-          position: absolute;
-          top: 4px;
-          left: -44px;
-          border-left: 44px solid transparent;
-          border-right: 44px solid transparent;
-          border-bottom: 76px solid var(--color-foreground);
-        }
-      }
-    }
-  }
 
   .btn {
     @apply relative inline-flex items-center justify-center font-bold transition-all duration-200 cursor-pointer overflow-hidden;
@@ -543,6 +510,8 @@
               .drop-icon {
                 @apply w-16 h-16 bg-zinc-50 rounded-2xl flex items-center justify-center mb-6 border-[3px] border-foreground shadow-handdrawn;
               }
+
+
 
               p { @apply text-xl font-serif font-bold mb-2; }
               .help { @apply text-sm text-foreground/40 font-bold; }
